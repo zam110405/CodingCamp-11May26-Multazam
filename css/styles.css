@@ -1,0 +1,601 @@
+/* ============================================================
+   CSS Custom Properties — Light Theme (default)
+   ============================================================ */
+:root {
+  /* Colors */
+  --color-bg:           #f5f7fa;
+  --color-surface:      #ffffff;
+  --color-surface-alt:  #eef1f6;
+  --color-border:       #d1d9e0;
+  --color-text:         #1a1d23;
+  --color-text-muted:   #5a6270;
+  --color-primary:      #2563eb;
+  --color-primary-hover:#1d4ed8;
+  --color-secondary:    #64748b;
+  --color-secondary-hover:#475569;
+  --color-danger:       #dc2626;
+  --color-danger-hover: #b91c1c;
+  --color-success:      #16a34a;
+  --color-warning-bg:   #fef9c3;
+  --color-warning-text: #713f12;
+  --color-error-bg:     #fee2e2;
+  --color-error-text:   #991b1b;
+  --color-toast-bg:     #1e293b;
+  --color-toast-text:   #f8fafc;
+
+  /* Typography */
+  --font-family:        system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-size-base:     1rem;
+  --font-size-sm:       0.875rem;
+  --font-size-lg:       1.125rem;
+  --font-size-xl:       1.5rem;
+  --font-size-2xl:      2rem;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold:   700;
+  --line-height:        1.6;
+
+  /* Spacing */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-5:  1.25rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* Layout */
+  --max-width:          900px;
+  --border-radius:      0.5rem;
+  --border-radius-sm:   0.25rem;
+  --border-radius-lg:   0.75rem;
+
+  /* Shadows */
+  --shadow-sm:  0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md:  0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg:  0 10px 15px rgba(0, 0, 0, 0.1);
+
+  /* Transitions */
+  --transition-fast:    150ms ease;
+  --transition-normal:  250ms ease;
+
+  /* Toast */
+  --toast-z-index: 9999;
+}
+
+/* ============================================================
+   Dark Theme Overrides
+   ============================================================ */
+[data-theme="dark"] {
+  /* Colors */
+  --color-bg:           #0f172a;
+  --color-surface:      #1e293b;
+  --color-surface-alt:  #273549;
+  --color-border:       #334155;
+  --color-text:         #f1f5f9;
+  --color-text-muted:   #94a3b8;
+  --color-primary:      #60a5fa;
+  --color-primary-hover:#93c5fd;
+  --color-secondary:    #94a3b8;
+  --color-secondary-hover:#cbd5e1;
+  /* #fca5a5 on #273549 gives ~6.5:1 — WCAG AA for normal text */
+  --color-danger:       #fca5a5;
+  --color-danger-hover: #fecaca;
+  --color-success:      #4ade80;
+  --color-warning-bg:   #422006;
+  --color-warning-text: #fde68a;
+  --color-error-bg:     #450a0a;
+  --color-error-text:   #fca5a5;
+  --color-toast-bg:     #f1f5f9;
+  --color-toast-text:   #0f172a;
+
+  /* Shadows — stronger in dark mode so elevation is still visible */
+  --shadow-sm:  0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md:  0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg:  0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* ============================================================
+   Reset & Base
+   ============================================================ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  transition: background-color var(--transition-normal), color var(--transition-normal);
+  min-height: 100vh;
+}
+
+/* ============================================================
+   Focus Indicators (WCAG AA)
+   ============================================================ */
+:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Explicit focus-visible for interactive elements */
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+  border-radius: var(--border-radius-sm);
+}
+
+/* Base link styles */
+a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+/* ============================================================
+   Layout
+   ============================================================ */
+.app-header {
+  background-color: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  padding: var(--space-4) var(--space-6);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+  box-shadow: var(--shadow-sm);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.app-header h1 {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+}
+
+.app-main {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+}
+
+/* Full-width sections */
+.balance-section,
+.list-section,
+.chart-section,
+.summary-section {
+  grid-column: 1 / -1;
+}
+
+/* ============================================================
+   Cards / Sections
+   ============================================================ */
+.balance-section,
+.form-section,
+.list-section,
+.chart-section,
+.summary-section,
+.category-section {
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+
+section h2 {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-4);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--color-border);
+}
+
+/* ============================================================
+   Balance Display
+   ============================================================ */
+.balance-section {
+  /* Extra visual weight for the primary metric */
+  border-left: 4px solid var(--color-primary);
+}
+
+#balance {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+  margin-top: var(--space-2);
+  /* Prevent layout shift when value changes */
+  min-height: calc(var(--font-size-2xl) * var(--line-height));
+}
+
+/* ============================================================
+   Forms
+   ============================================================ */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-muted);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 100%;
+  padding: var(--space-2) var(--space-3);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  color: var(--color-text);
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  appearance: auto;
+}
+
+input[type="text"]:hover,
+input[type="number"]:hover,
+select:hover {
+  border-color: var(--color-primary);
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  /* Keep outline for keyboard users; suppress only for pointer interactions */
+  outline: none;
+}
+
+/* Restore visible focus ring for keyboard navigation (WCAG AA) */
+input[type="text"]:focus-visible,
+input[type="number"]:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+[data-theme="dark"] input[type="text"]:focus,
+[data-theme="dark"] input[type="number"]:focus,
+[data-theme="dark"] select:focus {
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2);
+}
+
+/* ============================================================
+   Buttons
+   ============================================================ */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-5);
+  font-size: var(--font-size-base);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast), box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-hover);
+}
+
+.btn-secondary {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-secondary-hover);
+}
+
+/* Theme toggle button */
+#theme-toggle {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-2) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family);
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color var(--transition-fast), color var(--transition-fast);
+  white-space: nowrap;
+}
+
+#theme-toggle:hover {
+  background-color: var(--color-border);
+}
+
+/* ============================================================
+   Error / Validation Messages
+   ============================================================ */
+.error-message {
+  font-size: var(--font-size-sm);
+  color: var(--color-error-text);
+  background-color: var(--color-error-bg);
+  border-radius: var(--border-radius-sm);
+  padding: 0;
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height var(--transition-normal), padding var(--transition-normal);
+}
+
+.error-message:not(:empty) {
+  padding: var(--space-2) var(--space-3);
+  max-height: 10rem;
+  margin-bottom: var(--space-3);
+}
+
+/* ============================================================
+   Transaction List
+   ============================================================ */
+#transaction-list {
+  list-style: none;
+  max-height: 400px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  /* Custom scrollbar */
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border) transparent;
+}
+
+#transaction-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+#transaction-list::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+#transaction-list::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 3px;
+}
+
+.tx-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  transition: background-color var(--transition-fast);
+}
+
+.tx-item:hover {
+  background-color: var(--color-border);
+}
+
+.tx-name {
+  flex: 1;
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tx-amount {
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  white-space: nowrap;
+}
+
+.tx-category {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 9999px;
+  padding: var(--space-1) var(--space-3);
+  white-space: nowrap;
+}
+
+.tx-delete {
+  background: none;
+  border: none;
+  color: var(--color-danger);
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  line-height: 1;
+  padding: var(--space-1);
+  border-radius: var(--border-radius-sm);
+  transition: color var(--transition-fast), background-color var(--transition-fast);
+  flex-shrink: 0;
+}
+
+.tx-delete:hover {
+  color: var(--color-danger-hover);
+  background-color: var(--color-error-bg);
+}
+
+/* ============================================================
+   Empty State Messages
+   ============================================================ */
+.empty-state {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  padding: var(--space-8) var(--space-4);
+  font-style: italic;
+}
+
+/* ============================================================
+   Chart
+   ============================================================ */
+.chart-container {
+  position: relative;
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#spending-chart {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+#chart-empty {
+  display: none;
+}
+
+#chart-empty.visible {
+  display: block;
+}
+
+/* ============================================================
+   Monthly Summary
+   ============================================================ */
+#monthly-summary-content {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.month-group {
+  background-color: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius);
+  padding: var(--space-4);
+}
+
+.month-group h3 {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-text);
+  margin-bottom: var(--space-2);
+}
+
+.month-total {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-primary);
+  margin-bottom: var(--space-2);
+}
+
+.category-breakdown {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.category-breakdown li {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-1) 0;
+  border-bottom: 1px dashed var(--color-border);
+}
+
+.category-breakdown li:last-child {
+  border-bottom: none;
+}
+
+/* ============================================================
+   Toast Notification
+   ============================================================ */
+#toast {
+  position: fixed;
+  bottom: var(--space-6);
+  left: 50%;
+  transform: translateX(-50%) translateY(calc(100% + var(--space-6)));
+  background-color: var(--color-toast-bg);
+  color: var(--color-toast-text);
+  padding: var(--space-3) var(--space-6);
+  border-radius: var(--border-radius-lg);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  box-shadow: var(--shadow-lg);
+  z-index: var(--toast-z-index);
+  max-width: min(90vw, 480px);
+  text-align: center;
+  transition: transform var(--transition-normal);
+  pointer-events: none;
+}
+
+#toast.toast--visible {
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   Responsive
+   ============================================================ */
+@media (max-width: 640px) {
+  .app-main {
+    grid-template-columns: 1fr;
+    padding: var(--space-4) var(--space-3);
+    gap: var(--space-4);
+  }
+
+  .form-section,
+  .category-section {
+    grid-column: 1 / -1;
+  }
+
+  .app-header {
+    padding: var(--space-3) var(--space-4);
+  }
+
+  .app-header h1 {
+    font-size: var(--font-size-base);
+  }
+
+  .tx-item {
+    flex-wrap: wrap;
+  }
+
+  .tx-category {
+    order: 3;
+  }
+}
